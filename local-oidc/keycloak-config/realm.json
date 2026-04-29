@@ -1,0 +1,88 @@
+{
+  "realm": "oidc-inspector",
+  "enabled": true,
+  "displayName": "OIDC Inspector",
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": false,
+  "editUsernameAllowed": false,
+  "bruteForceProtected": false,
+  "accessTokenLifespan": 300,
+  "accessTokenLifespanForImplicitFlow": 900,
+  "ssoSessionIdleTimeout": 1800,
+  "ssoSessionMaxLifespan": 36000,
+  "clients": [
+    {
+      "clientId": "oidc-inspector-public",
+      "name": "OIDC Inspector (Public — PKCE)",
+      "description": "Public client for Authorization Code + PKCE flow. No client secret required.",
+      "enabled": true,
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "protocol": "openid-connect",
+      "redirectUris": [
+        "http://localhost:8080/*",
+        "http://127.0.0.1:8080/*"
+      ],
+      "webOrigins": ["+"],
+      "attributes": {
+        "pkce.code.challenge.method": "S256"
+      },
+      "defaultClientScopes": [
+        "openid",
+        "profile",
+        "email",
+        "roles",
+        "web-origins"
+      ]
+    },
+    {
+      "clientId": "oidc-inspector-confidential",
+      "name": "OIDC Inspector (Confidential)",
+      "description": "Confidential client for Authorization Code flow and Client Credentials grant.",
+      "enabled": true,
+      "publicClient": false,
+      "secret": "test-secret-change-in-prod",
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "protocol": "openid-connect",
+      "redirectUris": [
+        "http://localhost:8080/*",
+        "http://127.0.0.1:8080/*"
+      ],
+      "webOrigins": ["+"],
+      "defaultClientScopes": [
+        "openid",
+        "profile",
+        "email",
+        "roles",
+        "web-origins"
+      ]
+    }
+  ],
+  "users": [
+    {
+      "username": "testuser",
+      "enabled": true,
+      "emailVerified": true,
+      "email": "testuser@example.com",
+      "firstName": "Test",
+      "lastName": "User",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["default-roles-oidc-inspector"]
+    }
+  ]
+}
